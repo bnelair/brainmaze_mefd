@@ -1,0 +1,5 @@
+add_test([=[BrainmazeMefdTest.VersionReturnsNonNull]=]  /home/runner/work/brainmaze_mefd/brainmaze_mefd/_codeql_build_dir/brainmaze_mefd_tests [==[--gtest_filter=BrainmazeMefdTest.VersionReturnsNonNull]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[BrainmazeMefdTest.VersionReturnsNonNull]=]  PROPERTIES WORKING_DIRECTORY /home/runner/work/brainmaze_mefd/brainmaze_mefd/_codeql_build_dir SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+add_test([=[BrainmazeMefdTest.VersionReturnsExpectedFormat]=]  /home/runner/work/brainmaze_mefd/brainmaze_mefd/_codeql_build_dir/brainmaze_mefd_tests [==[--gtest_filter=BrainmazeMefdTest.VersionReturnsExpectedFormat]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[BrainmazeMefdTest.VersionReturnsExpectedFormat]=]  PROPERTIES WORKING_DIRECTORY /home/runner/work/brainmaze_mefd/brainmaze_mefd/_codeql_build_dir SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+set(  brainmaze_mefd_tests_TESTS BrainmazeMefdTest.VersionReturnsNonNull BrainmazeMefdTest.VersionReturnsExpectedFormat)

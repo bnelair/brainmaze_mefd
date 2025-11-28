@@ -1,0 +1,5 @@
+if(EXISTS "/home/runner/work/brainmaze_mefd/brainmaze_mefd/_codeql_build_dir/brainmaze_mefd_tests[1]_tests.cmake")
+  include("/home/runner/work/brainmaze_mefd/brainmaze_mefd/_codeql_build_dir/brainmaze_mefd_tests[1]_tests.cmake")
+else()
+  add_test(brainmaze_mefd_tests_NOT_BUILT brainmaze_mefd_tests_NOT_BUILT)
+endif()
