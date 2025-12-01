@@ -145,8 +145,8 @@ void MefWriter::create_segment(const std::string& channel_name) {
     auto& state = m_channel_states[channel_name];
     state.current_segment++;
     
-    // Format segment number with leading zeros
-    char seg_num_str[8];
+    // Format segment number with leading zeros (buffer sized for max int value)
+    char seg_num_str[16];
     snprintf(seg_num_str, sizeof(seg_num_str), "%06d", state.current_segment);
     
     std::string segment_name = channel_name + "-" + seg_num_str;
@@ -176,6 +176,11 @@ void MefWriter::create_segment(const std::string& channel_name) {
     uh.set_session_name(m_session_name);
     uh.segment_number = state.current_segment;
     std::memcpy(uh.level_UUID.data(), m_impl->session_uuid.data(), UUID_BYTES);
+    
+    // Compute header CRC (excluding the CRC field itself)
+    uh.header_CRC = CRC32::calculate(
+        reinterpret_cast<const ui1*>(&uh) + sizeof(ui4),
+        UNIVERSAL_HEADER_BYTES - sizeof(ui4));
     
     data_file.write(reinterpret_cast<const char*>(&uh), sizeof(uh));
     
@@ -371,7 +376,7 @@ void MefWriter::write_metadata(const std::string& channel_name, si4 segment_num)
     auto& state = m_channel_states[channel_name];
     
     // Format segment name
-    char seg_num_str[8];
+    char seg_num_str[16];
     snprintf(seg_num_str, sizeof(seg_num_str), "%06d", segment_num);
     std::string segment_name = channel_name + "-" + seg_num_str;
     
@@ -488,7 +493,7 @@ void MefWriter::write_indices(const std::string& channel_name, si4 segment_num) 
     auto& state = m_channel_states[channel_name];
     
     // Format segment name
-    char seg_num_str[8];
+    char seg_num_str[16];
     snprintf(seg_num_str, sizeof(seg_num_str), "%06d", segment_num);
     std::string segment_name = channel_name + "-" + seg_num_str;
     
@@ -531,7 +536,7 @@ void MefWriter::write_indices(const std::string& channel_name, si4 segment_num) 
     // Calculate CRCs
     uh.body_CRC = CRC32::calculate(
         reinterpret_cast<const ui1*>(state.indices.data()),
-        static_cast<si8>(state.indices.size() * sizeof(TimeSeriesIndex)));
+        state.indices.size() * sizeof(TimeSeriesIndex));
     
     file.write(reinterpret_cast<const char*>(&uh), sizeof(uh));
     

@@ -480,8 +480,12 @@ std::vector<si4> MefReader::decompress_blocks(const fs::path& data_path,
                 si8 local_start = std::max<si8>(0, start_idx - blk_start);
                 si8 local_end = std::min<si8>(idx.number_of_samples, end_idx - blk_start);
                 
+                // Ensure we don't exceed the decompressed samples
+                si8 max_i = static_cast<si8>(decomp_result.samples.size());
+                local_end = std::min(local_end, max_i);
+                
                 for (si8 i = local_start; i < local_end; ++i) {
-                    result.push_back(decomp_result.samples[i]);
+                    result.push_back(decomp_result.samples[static_cast<size_t>(i)]);
                 }
             }
         }

@@ -1,0 +1,47 @@
+# Build directories
+build/
+cmake-build-*/
+out/
+
+# Compiled object files
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.cproject
+.settings/
+*.user
+*.suo
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.egg-info/
+dist/
+eggs/
+*.egg
+.eggs/
+*.whl
+
+# Test outputs
+Testing/
+CTestTestfile.cmake
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

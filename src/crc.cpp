@@ -77,27 +77,27 @@ std::array<ui4, CRC32::TABLE_ENTRIES> CRC32::s_table = {{
 
 bool CRC32::s_initialized = true;
 
-ui4 CRC32::calculate(const ui1* data, si8 length) {
+ui4 CRC32::calculate(const ui1* data, size_t length) {
     ui4 crc = CRC_START_VALUE;
     
-    for (si8 i = 0; i < length; ++i) {
+    for (size_t i = 0; i < length; ++i) {
         crc = s_table[(crc ^ data[i]) & 0xFF] ^ (crc >> 8);
     }
     
     return crc;
 }
 
-ui4 CRC32::update(const ui1* data, si8 length, ui4 current_crc) {
+ui4 CRC32::update(const ui1* data, size_t length, ui4 current_crc) {
     ui4 crc = current_crc;
     
-    for (si8 i = 0; i < length; ++i) {
+    for (size_t i = 0; i < length; ++i) {
         crc = s_table[(crc ^ data[i]) & 0xFF] ^ (crc >> 8);
     }
     
     return crc;
 }
 
-bool CRC32::validate(const ui1* data, si8 length, ui4 expected_crc) {
+bool CRC32::validate(const ui1* data, size_t length, ui4 expected_crc) {
     return calculate(data, length) == expected_crc;
 }
 

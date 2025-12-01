@@ -31,7 +31,7 @@ public:
      * @param length Number of bytes
      * @return CRC-32 value
      */
-    static ui4 calculate(const ui1* data, si8 length);
+    static ui4 calculate(const ui1* data, size_t length);
 
     /**
      * @brief Update running CRC with additional data
@@ -40,7 +40,7 @@ public:
      * @param current_crc Current CRC value
      * @return Updated CRC-32 value
      */
-    static ui4 update(const ui1* data, si8 length, ui4 current_crc);
+    static ui4 update(const ui1* data, size_t length, ui4 current_crc);
 
     /**
      * @brief Validate CRC against expected value
@@ -49,7 +49,7 @@ public:
      * @param expected_crc Expected CRC value
      * @return true if CRC matches, false otherwise
      */
-    static bool validate(const ui1* data, si8 length, ui4 expected_crc);
+    static bool validate(const ui1* data, size_t length, ui4 expected_crc);
 
     /**
      * @brief Get the CRC lookup table
